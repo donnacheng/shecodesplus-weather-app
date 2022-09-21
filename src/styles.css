@@ -77,3 +77,9 @@ h1 {
   font-weight: 300;
   padding-right: 15px;
 }
+
+.git-link {
+  margin: 0;
+  clear: both;
+  font-size: 10px;
+}
