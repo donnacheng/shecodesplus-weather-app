@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App</title>
+    <meta charset="UTF-8" />
+    <link href="src/styles.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+
+    <div class="card">
+        <div class="card-body">
+    <form class="city-search-form" id="city-search-form">
+
+          <div class="row">
+          <div class="col">
+
+        <div class="form-group" >
+          <input type="search" class="form-control" autofocus="on" id="city-input" placeholder="Enter city">
+        </div>
+      </div>
+     <div class="col-4">     
+          <input type="submit" class="btn btn-primary" value="Search" id="search-btn" />
+            <input type="button"  class="btn btn-primary" value="Current" id="current-btn">
+
+          </div>
+          </div>
+        </div>
+      </form>
+
+
+
+      <div class="row">
+      <div class="col">
+      <h1>
+        <div class="citynames" id="city-name">
+        City
+        </div>
+        
+        <div class="citydate" id="city-date">
+          Day Time
+        </div>
+        <div class="citydate" id="city-weather-description">
+          Description
+        </div>
+
+      </h1>
+
+        <div class="temp">
+          <span class="tempNumber" id="temp-number">  
+          00
+          </span>
+         <!-- <span class="farenheit" id="farenheit-link">
+          <a href=#>°f |</a>
+        </span> -->
+          </span>
+          <span class="celcius" id="celcius-link">
+           °c
+          </span>
+          <div class="temp-icon">
+          ⛅
+          <br />
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-4">
+        <div class="card">
+        <div class="card-body">
+          <div class="daysofweek">
+            Tues.🌧️73°<br />
+            Weds.☁️74°<br />
+            Thurs.⛅75°<br />
+            Fri.☀️76°<br />
+            Sat.☀️77°<br />
+            Sun.☀️78°<br />
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+
+    <script src="src/index.js"></script>
+
+
+  </body>
+</html>        

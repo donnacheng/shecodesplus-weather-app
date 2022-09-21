@@ -1,0 +1,79 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 60px;
+  max-width: 600px;
+}
+
+.temp {
+  font-family: "Roboto", sans-serif;
+  font-size: 70px;
+  padding-left: 40px;
+  line-height: 100px;
+}
+
+.tempNumber {
+  font-family: "Roboto", sans-serif;
+  font-size: 70px;
+  font-weight: 500;
+  color: slateblue;
+  padding-left: 10px;
+}
+
+.celcius {
+  font-family: "Roboto", sans-serif;
+  font-size: 50px;
+  font-weight: 100;
+  color: slateblue;
+  position: relative;
+  top: -15px;
+  left: -20px;
+}
+.farenheit {
+  font-family: "Roboto", sans-serif;
+  font-size: 50px;
+  font-weight: 100;
+  color: slateblue;
+  position: relative;
+  top: -15px;
+}
+
+.temp-icon {
+  font-family: "Roboto", sans-serif;
+  font-size: 125px;
+  padding-bottom: 40px;
+}
+
+a,
+a:link,
+a:visited,
+a:hover {
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-color: black;
+}
+
+h1 {
+  padding-left: 20px;
+}
+
+.citynames {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.citydate {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.daysofweek {
+  font-size: 20px;
+  line-height: 35px;
+  text-align: right;
+  font-weight: 300;
+  padding-right: 15px;
+}
