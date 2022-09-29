@@ -1,71 +1,3 @@
-// Week 5 Homework APIs
-
-function handleSubmit(event) {
-  event.preventDefault();
-  let cityname = document.querySelector("#city-input").value;
-  citySearch(cityname);
-}
-function citySearch(cityname) {
-  let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showCitySearch);
-}
-
-function showCitySearch(response) {
-  document.querySelector("#city-name").innerHTML = response.data.name;
-  document.querySelector("#temp-number").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#city-weather-description").innerHTML =
-    response.data.weather[0].main;
-}
-
-let formCity = document.querySelector("#city-search-form");
-formCity.addEventListener("submit", handleSubmit);
-
-citySearch("New York");
-
-///////////////////////////////////////////////////////////////////
-
-function getCurrentLocation(event) {
-  debugger;
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(axiosPosition);
-}
-
-function axiosPosition(position) {
-  let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
-
-  /*let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  axios
-    .get(
-      `${apiUrl}
-      lat=${latitude}&lon=${longitude}
-      &appid=${apiKey}
-      &units=metric`
-    )
-    */
-  axios.get(apiUrl).then(showCitySearch);
-}
-
-let currentLocationBtn = document.querySelector("#current-btn");
-currentLocationBtn.addEventListener("click", getCurrentLocation);
-
-/*
-function showPosition(response) {
-  let currentLocale = document.querySelector("#city-search");
-  currentLocale.innerHTML = `${response.data.name}`;
-  let currentTemp = Math.round(response.data.main.temp);
-  let currentTempShow = document.querySelector("#temp-number");
-  currentTempShow.innerHTML = `${currentTemp}`;
-}
-*/
-
-////////////////////////////////////////////////////////////////////
-
 let currentTime = new Date();
 
 function formatDayTime(date) {
@@ -99,32 +31,90 @@ function formatDayTime(date) {
 let timeWeather = document.querySelector("#city-date");
 timeWeather.innerHTML = formatDayTime(currentTime);
 
-/*
+// Week 5 Homework APIs
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityname = document.querySelector("#city-input").value;
+  citySearch(cityname);
+}
+function citySearch(cityname) {
+  let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showCitySearch);
+}
+
+function showCitySearch(response) {
+  celciusTemperature = response.data.main.temp;
+
+  document.querySelector("#city-name").innerHTML = response.data.name;
+  document.querySelector("#temp-number").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  document.querySelector("#city-weather-description").innerHTML =
+    response.data.weather[0].main;
+
+  document.querySelector("#city-weather-humidity").innerHTML =
+    response.data.main.humidity;
+
+  document.querySelector("#city-weather-windspeed").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+}
+
+let formCity = document.querySelector("#city-search-form");
+formCity.addEventListener("submit", handleSubmit);
+
+citySearch("New York");
+
+///////////////////////////////////////////////////////////////////
+
+function getCurrentLocation(event) {
+  debugger;
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(axiosPosition);
+}
+
+function axiosPosition(position) {
+  let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showCitySearch);
+}
+
+let currentLocationBtn = document.querySelector("#current-btn");
+currentLocationBtn.addEventListener("click", getCurrentLocation);
+
+////////////////////////////////////////////////////////////////////
+
 // Week 4 Challenge 3 Bonus attempt
 
 function convertToFarenheit(event) {
   event.preventDefault();
 
-  let temperature = document.querySelector("#temp-number.value");
-
-  let fTemp = Math.round((temperature * 9) / 5 + 32);
-
-  let fConverted = document.querySelector("#temp-number");
-
-  fConverted.innerHTML = `${fTemp}`;
+  //let ftemperature = response.data.main.temp;
+  //let fTemp = Math.round((temperature * 9) / 5 + 32);
+  let ftemperature = document.querySelector("#temp-number");
+  let fTemp = celciusTemperature * 1.8 + 32;
+  ftemperature.innerHTML = Math.round(fTemp);
 }
 
 function convertToCelcius(event) {
   event.preventDefault();
-
-  let temperature = document.querySelector("#temp-number.value");
-
-  let cTemp = Math.round(((temperature - 32) * 5) / 9);
-
+  //let cTemp = Math.round(((temperature - 32) * 5) / 9);
+  //let cTemp = Math.round((ctemperature - 32) * 0.5556);
+  //let cTemp = response.data.main.temp;
   let cConverted = document.querySelector("#temp-number");
-
-  cConverted.innerHTML = `${cTemp}`;
+  cConverted.innerHTML = Math.round(celciusTemperature);
 }
+
+let celciusTemperature = null;
 
 let farenheitLink = document.querySelector("#farenheit-link");
 farenheitLink.addEventListener("click", convertToFarenheit);
