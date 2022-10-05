@@ -28,8 +28,77 @@ function formatDayTime(date) {
   return formattedDayTime;
 }
 
+// Used in forecast weather app bottom row
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 let timeWeather = document.querySelector("#city-date");
 timeWeather.innerHTML = formatDayTime(currentTime);
+
+// Week 8 Forecast, dynamic HTML
+
+// Function to inject dynamic HTML into columns for 7 day forecast at app bottom
+// Appends next "forecastDay" to previous days in the response array
+// using foreach loop, imp. forecastHTML = forecastHTML + `...html...`
+// Function called within getForecast function for openweather API data "response.data.coord"
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
+
+  //let days = ["Mon", "Tues", "Weds", "Thur", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class = "row">`; //opens row of columns
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+    <div class = "col-2">
+      <div class = "weather-forecast-date">
+          ${formatDay(forecastDay.dt)}</div>
+      <img src = 
+          "http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
+          alt = ""
+          width = "42" />
+    
+    <div class = "weather-forecast-temperatures">
+      <span class = "weather-forecast-temperature-max">
+      ${Math.round(forecastDay.temp.max)}°/</span>
+      <span class = "weather-forecast-temperature-min"> 
+      ${Math.round(forecastDay.temp.min)}°</span>
+    
+    </div>
+  </div>
+  `;
+    }
+  });
+  // Closes column and injects HTML
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+// Week 8 Forecast, Call to API
+// only the OneCall API set from openweathermap.org contains the forecast data
+// but no city name so forecast called from coordinates
+// This function called from showCitySearch function (displaytemperature function)
+
+function getForecast(coordinates) {
+  let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
+
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
 
 // Week 5 Homework APIs
 
@@ -38,6 +107,7 @@ function handleSubmit(event) {
   let cityname = document.querySelector("#city-input").value;
   citySearch(cityname);
 }
+
 function citySearch(cityname) {
   let apiKey = "c6f8ef4575250284954db9f4dfa7a996";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apiKey}&units=metric`;
@@ -67,6 +137,8 @@ function showCitySearch(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
 let formCity = document.querySelector("#city-search-form");
